@@ -432,6 +432,53 @@
         </div>
     </div>
 
+
+<div id="kontaktGuideModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal('kontaktGuideModal')">&times;</span>
+        <h2 style="margin-bottom: 20px;">Kontakt Installation Guide</h2>
+        <div style="line-height: 1.6; color: #ccc;">
+            <p style="color: #ffd700; margin-bottom: 10px;">Important: We recommend disabling your anti-virus prior to downloading, otherwise it can remove/corrupt the KeyGen.</p>
+            <p>1. Mount the provided ISO file (Kontakt 8 8.0.1.iso)</p>
+            <p>2. Install Kontakt 8 using the provided installer from the mounted ISO (Kontakt 8 Setup PC.exe)</p>
+            <p>3. Navigate to "%COMMONPROGRAMFILES%\Native Instruments\Service Center"</p>
+            <p style="padding-left: 20px">- If the "Service Center" folder doesn't exist, create it and copy the provided "NativeAccess.xml" file into it</p>
+            <p style="padding-left: 20px">- If there is a "NativeAccess.xml" file inside, check its size. If smaller, replace it with the provided .xml file</p>
+            <p>4. Activate Kontakt 8 using the provided KeyGen (Kontakt_Keygen.exe)</p>
+        </div>
+    </div>
+</div>
+
+<div id="autotuneGuideModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal('autotuneGuideModal')">&times;</span>
+        <h2 style="margin-bottom: 20px;">Auto-Tune Installation Guide</h2>
+        <div style="line-height: 1.6; color: #ccc;">
+            <p>1. Run the installer package as administrator</p>
+            <p>2. Follow the installation wizard</p>
+            <p>3. When prompted, launch the provided KeyGen</p>
+            <p>4. Copy the generated serial number</p>
+            <p>5. Complete the activation process</p>
+            <p>6. Restart your DAW</p>
+        </div>
+    </div>
+</div>
+
+<div id="glitch2GuideModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal('glitch2GuideModal')">&times;</span>
+        <h2 style="margin-bottom: 20px;">Glitch 2 Installation Guide</h2>
+        <div style="line-height: 1.6; color: #ccc;">
+            <p>1. Extract the downloaded package</p>
+            <p>2. Run the installer as administrator</p>
+            <p>3. Choose your VST plugins directory</p>
+            <p>4. Complete the installation</p>
+            <p>5. Launch your DAW and scan for new plugins</p>
+            <p>6. The plugin should now appear in your effects list</p>
+        </div>
+    </div>
+</div>
+
 <!-- Add these new modals right after your existing modals but before the sidebar nav -->
 <div id="melodyneGuideModal" class="modal">
     <div class="modal-content">
@@ -782,6 +829,49 @@
     <div class="button-group">
         <a href="https://example.com/download/drip" class="button download-btn" target="_blank">Download</a>
         <a href="#" class="button guide-btn" onclick="openModal('dripGuideModal')">Guide</a>
+    </div>
+</div>
+
+
+<!-- Kontakt -->
+<div class="plugin-card" data-name="kontakt" data-description="Industry-standard sampling platform and virtual instrument host">
+    <img src="https://i.postimg.cc/c4nNpzNg/images-2.jpg" alt="Kontakt" class="plugin-image">
+    <div class="plugin-info">
+        <h3>Kontakt</h3>
+        <div class="version">v8.0.1</div>
+        <p>Industry-standard sampling platform and virtual instrument host</p>
+    </div>
+    <div class="button-group">
+        <a href="https://example.com/download/kontakt" class="button download-btn" target="_blank">Download</a>
+        <a href="#" class="button guide-btn" onclick="openModal('kontaktGuideModal')">Guide</a>
+    </div>
+</div>
+
+<!-- Antares Auto-Tune -->
+<div class="plugin-card" data-name="auto-tune" data-description="Industry-standard pitch correction and vocal effects">
+    <img src="https://i.postimg.cc/dtYYKBQ5/Antares-software-activation-instructions-featured-image-100.jpg" alt="Auto-Tune" class="plugin-image">
+    <div class="plugin-info">
+        <h3>Auto-Tune</h3>
+        <div class="version">v9.3.1</div>
+        <p>Industry-standard pitch correction and vocal effects</p>
+    </div>
+    <div class="button-group">
+        <a href="https://example.com/download/auto-tune" class="button download-btn" target="_blank">Download</a>
+        <a href="#" class="button guide-btn" onclick="openModal('autotuneGuideModal')">Guide</a>
+    </div>
+</div>
+
+<!-- Glitch 2 -->
+<div class="plugin-card" data-name="glitch 2" data-description="Multi-effect glitch and buffer manipulation plugin">
+    <img src="https://i.postimg.cc/QNWfqZ3z/glitch210-screenshot.png" alt="Glitch 2" class="plugin-image">
+    <div class="plugin-info">
+        <h3>Glitch 2</h3>
+        <div class="version">v2.1.0</div>
+        <p>Multi-effect glitch and buffer manipulation plugin</p>
+    </div>
+    <div class="button-group">
+        <a href="https://example.com/download/glitch2" class="button download-btn" target="_blank">Download</a>
+        <a href="#" class="button guide-btn" onclick="openModal('glitch2GuideModal')">Guide</a>
     </div>
 </div>
 
