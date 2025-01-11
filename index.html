@@ -82,56 +82,95 @@
         }
 
         /* === Sidebar Styles === */
-        .sidebar {
-            position: fixed;
-            top: 12px;
-            bottom: 12px;
-            left: 12px;
-            width: 54px;
-            background: rgba(0, 0, 0, 0.9);
-            border-radius: 8px;
-            padding: 12px;
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-            border: 1px solid #101010;
-            transition: width 0.3s;
-            overflow: hidden;
-            z-index: 100;
-        }
+.sidebar {
+    position: fixed;
+    top: 12px;
+    bottom: 12px;
+    left: 12px;
+    width: 64px; /* Increased from 54px to 64px */
+    background: rgba(17, 17, 17, 0.95);
+    border-radius: 12px;
+    padding: 12px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border: 1px solid #202020;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
 
         .sidebar:hover {
             width: 240px;
         }
 
-        .menu-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-            color: white;
-            white-space: nowrap;
-            font-size: 15px;
-            cursor: pointer;
-        }
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    text-decoration: none;
+    color: white;
+    white-space: nowrap;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
 
-        .menu-emoji {
-            font-size: 24px;
-            min-width: 30px;
-            text-align: center;
-        }
+.menu-icon {
+    min-width: 36px;
+    width: 36px;  /* Added fixed width */
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #1a1a1a;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.menu-text {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 36px; /* Match the icon height */
+    white-space: nowrap;
+    opacity: 0.9;
+}
+
+.sidebar {
+    position: fixed;
+    top: 12px;
+    bottom: 12px;
+    left: 12px;
+    width: 70px;
+    background: rgba(17, 17, 17, 0.95);
+    border-radius: 12px;
+    padding: 12px 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #202020;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
 
         /* === Main Content Styles === */
-        .main-content {
-            margin-left: 90px;
-            margin-right: 12px;
-            margin-top: 12px;
-            height: calc(100vh - 24px);
-            display: flex;
-            flex-direction: column;
-            max-width: 1800px;
-            padding-left: 12px;
-        }
+	.main-content {
+    	margin-left: 100px; /* Increased to account for wider sidebar */
+   	 margin-right: 12px;
+   	 margin-top: 12px;
+    	height: calc(100vh - 24px);
+    	display: flex;
+    	flex-direction: column;
+    	max-width: 1800px;
+    	padding-left: 12px;
+	}
 
         /* === Plugin Grid Styles === */
         .content-grid {
@@ -270,25 +309,25 @@
 
         /* Add the new sidebar styles RIGHT HERE, before the closing style tag */
         /* Enhanced Sidebar Styles */
-        .sidebar {
-            position: fixed;
-            top: 12px;
-            bottom: 12px;
-            left: 12px;
-            width: 54px;
-            background: rgba(17, 17, 17, 0.95);
-            border-radius: 12px;
-            padding: 12px 8px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            border: 1px solid #202020;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            overflow: hidden;
-            z-index: 100;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
+.sidebar {
+    position: fixed;
+    top: 12px;
+    bottom: 12px;
+    left: 12px;
+    width: 75px; /* Significantly increased width */
+    background: rgba(17, 17, 17, 0.95);
+    border-radius: 12px;
+    padding: 12px;  /* Increased padding */
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border: 1px solid #202020;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
 
         .sidebar:hover {
             width: 240px;
@@ -317,16 +356,17 @@
             transform: translateX(3px);
         }
 
-        .menu-icon {
-            min-width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #1a1a1a;
-            border-radius: 8px;
-            transition: all 0.2s ease;
-        }
+.menu-icon {
+    min-width: 40px;  /* Increased from 32px */
+    height: 40px;     /* Increased from 32px */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #1a1a1a;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    margin: 0 auto;   /* Center the icon */
+}
 
         .menu-item:hover .menu-icon {
             background: rgba(139, 92, 246, 0.2);
@@ -612,7 +652,8 @@
 
 <!-- Sidebar Navigation -->
 <nav class="sidebar">
-    <div class="sidebar-section">
+    <!-- Top Section -->
+    <div class="sidebar-section" style="flex: 0 0 auto;">
         <a href="#" class="menu-item">
             <div class="menu-icon">
                 <svg width="20" height="20" fill="none" stroke="#8b5cf6" stroke-width="2" viewBox="0 0 24 24">
@@ -632,6 +673,10 @@
             </div>
             <span class="menu-text">Library</span>
         </a>
+    </div>
+
+    <!-- Bottom Section -->
+    <div class="sidebar-section" style="margin-top: auto;">
         <a class="menu-item" onclick="openModal('dmcaModal')">
             <div class="menu-icon">
                 <svg width="20" height="20" fill="none" stroke="#8b5cf6" stroke-width="2" viewBox="0 0 24 24">
@@ -640,12 +685,8 @@
             </div>
             <span class="menu-text">DMCA Requests</span>
         </a>
-    </div>
-    
-    <div class="sidebar-divider"></div>
-    
-    <div class="sidebar-section">
-        <a class="menu-item" onclick="openModal('supportModal')">
+        
+        <a class="menu-item" onclick="openModal('supportModal')" style="margin-bottom: 8px;">
             <div class="menu-icon">
                 <svg width="20" height="20" fill="none" stroke="#8b5cf6" stroke-width="2" viewBox="0 0 24 24">
                     <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"></path>
@@ -656,7 +697,23 @@
     </div>
 </nav>
 
-    <!-- Main Content -->
+<!-- Header with Logo and Title -->
+<div style="display: flex; align-items: center; gap: 16px; margin-bottom: 18px; padding: 16px; margin-left: 100px;">
+    <img src="https://i.postimg.cc/TwhCFh4V/image-2025-01-11-085413056-removebg-preview.png" 
+         alt="Plugins Pro Logo" 
+         style="height: 35px; width: auto;">
+    <h1 style="
+        font-size: 1.5rem;
+        font-weight: bold;
+        background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-family: 'Segoe UI', system-ui, sans-serif;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    ">Plugins Pro</h1>
+</div>   
+
+ <!-- Main Content -->
     <main class="main-content">
         <!-- Search Bar -->
         <div class="search-container">
