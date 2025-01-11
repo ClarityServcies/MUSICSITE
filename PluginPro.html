@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PluginPro - Free Audio Plugins</title>
+    <link rel="icon" 	href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC	9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzhiNWNmNiI+PHBhdGggZD0iTTEyIDNMMTIg	MTMuNTVDMTEuNDEgMTMuMjEgMTAuNzMgMTMgMTAgMTNDNy43OSAxMyA2IDE0Ljc5IDYgMTdTNy43OS	AyMSAxMCAyMVMxNCAxOS4yMSAxNCAxN1YxMUgyMFY3SDEyVjNaIi8+PC9zdmc+" 	type="image/svg+xml">
+    <style
+    <style>
+        /* === Base Styles === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #000;
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        /* === Search Bar Styles === */
+        .search-container {
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .search-bar {
+            width: 100%;
+            max-width: 600px;
+            padding: 12px 20px;
+            border-radius: 8px;
+            border: 1px solid #333;
+            background: #111;
+            color: #fff;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .search-bar:focus {
+            outline: none;
+            border-color: #8b5cf6;
+            box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
+        }
+
+        /* === Modal Styles === */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: #111;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid #202020;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .close-modal:hover {
+            color: #fff;
+        }
+
+        /* === Sidebar Styles === */
+        .sidebar {
+            position: fixed;
+            top: 12px;
+            bottom: 12px;
+            left: 12px;
+            width: 54px;
+            background: rgba(0, 0, 0, 0.9);
+            border-radius: 8px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            border: 1px solid #101010;
+            transition: width 0.3s;
+            overflow: hidden;
+            z-index: 100;
+        }
+
+        .sidebar:hover {
+            width: 240px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: white;
+            white-space: nowrap;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .menu-emoji {
+            font-size: 24px;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        /* === Main Content Styles === */
+        .main-content {
+            margin-left: 90px;
+            margin-right: 12px;
+            margin-top: 12px;
+            height: calc(100vh - 24px);
+            display: flex;
+            flex-direction: column;
+            max-width: 1800px;
+            padding-left: 12px;
+        }
+
+        /* === Plugin Grid Styles === */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 12px;
+            padding: 16px;
+        }
+
+        .plugin-card {
+            background: #111;
+            border-radius: 8px;
+            border: 1px solid #202020;
+            transition: all 0.3s;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .plugin-card:hover {
+            border-color: #8b5cf6;
+            transform: translateY(-2px);
+        }
+
+        .plugin-image {
+            width: 100%;
+            height: 90px;
+            object-fit: cover;
+            border-bottom: 1px solid #202020;
+        }
+
+        .plugin-info {
+            padding: 12px;
+        }
+
+        .plugin-info h3 {
+            margin-bottom: 2px;
+            font-size: 0.9rem;
+        }
+
+        .plugin-info .version {
+            color: #8b5cf6;
+            font-size: 11px;
+            margin-bottom: 4px;
+        }
+
+        .plugin-info p {
+            color: #666;
+            font-size: 11px;
+            line-height: 1.2;
+            height: 28px;
+            overflow: hidden;
+        }
+
+        /* === Button Styles === */
+        .button-group {
+            display: flex;
+            gap: 8px;
+            padding: 8px 12px;
+        }
+
+        .button {
+            flex: 1;
+            padding: 6px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.2s;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .download-btn {
+            background: #8b5cf6;
+            color: white;
+        }
+
+        .guide-btn {
+            background: #333;
+            color: white;
+        }
+
+        .button:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        /* DMCA Modal Styles */
+        .dmca-content {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #ccc;
+        }
+
+        .dmca-content p {
+            margin-bottom: 15px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1800px) {
+            .content-grid {
+                grid-template-columns: repeat(6, 1fr);
+            }
+        }
+
+        @media (max-width: 1400px) {
+            .content-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .content-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .content-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .content-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 400px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Add the new sidebar styles RIGHT HERE, before the closing style tag */
+        /* Enhanced Sidebar Styles */
+        .sidebar {
+            position: fixed;
+            top: 12px;
+            bottom: 12px;
+            left: 12px;
+            width: 54px;
+            background: rgba(17, 17, 17, 0.95);
+            border-radius: 12px;
+            padding: 12px 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            border: 1px solid #202020;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar:hover {
+            width: 240px;
+            border-color: #8b5cf6;
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.2);
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: white;
+            white-space: nowrap;
+            font-size: 15px;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .menu-item:hover {
+            background: rgba(139, 92, 246, 0.1);
+            border-color: rgba(139, 92, 246, 0.3);
+            transform: translateX(3px);
+        }
+
+        .menu-icon {
+            min-width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #1a1a1a;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .menu-item:hover .menu-icon {
+            background: rgba(139, 92, 246, 0.2);
+        }
+
+        .menu-text {
+            font-weight: 500;
+            opacity: 0.9;
+        }
+
+        .sidebar-section {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .sidebar-divider {
+            height: 1px;
+            background: #202020;
+            margin: 8px 4px;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+
+    </style>
+</head>
+
+<body>
+   <body>
+    <!-- Support Modal -->
+    <div id="supportModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('supportModal')">&times;</span>
+            <h2 style="margin-bottom: 20px;">About PluginPro</h2>
+            <div style="line-height: 1.6; color: #ccc;">
+                <p style="margin-bottom: 15px;">Welcome to PluginPro, your trusted source for high-quality audio software since 2015. For nearly a decade, we've been committed to making professional audio tools accessible to everyone, regardless of their budget.</p>
+                <p style="margin-bottom: 15px;">Our journey began with a simple idea: great music shouldn't be limited by expensive software. What started as a small community project has grown into a comprehensive platform serving hundreds of thousands of musicians, producers, and audio enthusiasts worldwide.</p>
+                <p style="margin-bottom: 15px;">We carefully test and verify every plugin we offer, ensuring they meet our high standards for quality and safety. Our collection includes both classic tools that have shaped countless hits and cutting-edge plugins that push the boundaries of what's possible in audio production.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- DMCA Modal -->
+    <div id="dmcaModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('dmcaModal')">&times;</span>
+            <h2 style="margin-bottom: 20px;">DMCA Requests</h2>
+            <div class="dmca-content">
+                <p>PluginPro is in compliance with 17 U.S.C. § 512 and the Digital Millennium Copyright Act ("DMCA").</p>
+                
+                <p>PluginPro respects the intellectual property rights of others and expects its users to do the same. It is PluginPro's policy, in appropriate circumstances and at its discretion, to disable and/or terminate the accounts of users who repeatedly infringe or are repeatedly charged with infringing the copyrights or other intellectual property rights of others.</p>
+                
+                <p>It is our policy to respond to any infringement notices and take appropriate actions under the Digital Millennium Copyright Act ("DMCA") and other applicable intellectual property laws. PluginPro is a hosting site dedicated to hosting trial versions of software with activation tools for educational purposes only. The provided content is stored only on third-party servers. We do not adhere to any kind of copyright infringement.</p>
+                
+                <p>With that said, PluginPro is still a public indexing site with a lot of user-generated content. In case of copyright infringement, the supposed content owner should contact us at: golpmj@gmail.com</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Guide Modals -->
+    <div id="sausageGuideModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('sausageGuideModal')">&times;</span>
+            <h2 style="margin-bottom: 20px;">Sausage Fattener Installation Guide</h2>
+            <div style="line-height: 1.6; color: #ccc;">
+                <p>1. Download the installer package</p>
+                <p>2. Run the .exe file as administrator</p>
+                <p>3. Select your DAW's VST folder during installation</p>
+                <p>4. Complete the installation process</p>
+                <p>5. Restart your DAW</p>
+                <p>6. The plugin should now appear in your VST folder</p>
+            </div>
+        </div>
+    </div>
+
+<div id="sootheGuideModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal('sootheGuideModal')">&times;</span>
+        <h2 style="margin-bottom: 20px;">Soothe 2 Installation Guide</h2>
+        <div style="line-height: 1.6; color: #ccc;">
+            <p style="color: #ffd700; margin-bottom: 10px;">Note: If you can't access the GUI copy disableOpenGL.xml to %PROGRAMDATA%\oeksound\soothe2\</p>
+            <p>NOTE: There is no need to re-register if you had previously installed the older version.</p>
+            <p>Step 1: Install and open the plugins</p>
+            <p>Step 2: Click "Enter License", and launch the provided KeyGen</p>
+            <p>Step 3: Click "Generate", copy the license code and paste it into the plugin window.</p>
+            <p>Step 4: Restart your DAW</p>
+        </div>
+    </div>
+</div>
+
+    <div id="fabfilterGuideModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('fabfilterGuideModal')">&times;</span>
+            <h2 style="margin-bottom: 20px;">FabFilter Bundle Installation Guide</h2>
+            <div style="line-height: 1.6; color: #ccc;">
+                <p>1. Download all bundle components</p>
+                <p>2. Run each installer separately</p>
+                <p>3. Follow the installation wizard for each plugin</p>
+                <p>4. Restart your computer after installing all plugins</p>
+                <p>5. Open your DAW and verify installation</p>
+            </div>
+        </div>
+    </div>
+
+<!-- Add these new modals right after your existing modals but before the sidebar nav -->
+<div id="melodyneGuideModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal('melodyneGuideModal')">&times;</span>
+        <h2 style="margin-bottom: 20px;">Melodyne Installation Guide</h2>
+        <div style="line-height: 1.6; color: #ccc;">
+            <p style="color: #ffd700; margin-bottom: 10px;">Note: Required - Microsoft Visual C++ Redistributable 2022 (x64)</p>
+            <p>1. Install Microsoft Visual C++ Redistributable 2022 (x64) if not already installed</p>
+            <p>2. Run the installer package</p>
+            <p>3. Follow the installation wizard</p>
+            <p>4. Restart your DAW after installation</p>
+        </div>
+    </div>
+</div>
+
+<div id="valhallaGuideModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal('valhallaGuideModal')">&times;</span>
+        <h2 style="margin-bottom: 20px;">Valhalla Installation Guide</h2>
+        <div style="line-height: 1.6; color: #ccc;">
+            <p>NOTE: There is no need to re-register if you had previously installed the older version.</p>
+            <p>Step 1: Install and open the plugins</p>
+            <p>Step 2: Click "Enter License", and launch the provided KeyGen</p>
+            <p>Step 3: Click "Generate", copy the license code and paste it into the plugin window.</p>
+            <p>Step 4: Restart your DAW</p>
+        </div>
+    </div>
+</div>
+
+<div id="endlessSmileGuideModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal('endlessSmileGuideModal')">&times;</span>
+        <h2 style="margin-bottom: 20px;">Endless Smile Installation Guide</h2>
+        <div style="line-height: 1.6; color: #ccc;">
+            <p>1. Download and extract the installation package</p>
+            <p>2. Run the installer as administrator</p>
+            <p>3. Follow the installation wizard</p>
+            <p>4. Choose your preferred VST directory</p>
+            <p>5. Complete the installation</p>
+            <p>6. Restart your DAW</p>
+        </div>
+    </div>
+</div>
+
+<div id="plasmaGuideModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal('plasmaGuideModal')">&times;</span>
+        <h2 style="margin-bottom: 20px;">iZotope Plasma Installation Guide</h2>
+        <div style="line-height: 1.6; color: #ccc;">
+            <p>1. Download and extract the installation package</p>
+            <p>2. Run the installer as administrator</p>
+            <p>3. Follow the installation wizard</p>
+            <p>4. Choose your preferred VST directory</p>
+            <p>5. Complete the installation</p>
+            <p>6. Restart your DAW</p>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Sidebar Navigation -->
+<nav class="sidebar">
+    <div class="sidebar-section">
+        <a href="#" class="menu-item">
+            <div class="menu-icon">
+                <svg width="20" height="20" fill="none" stroke="#8b5cf6" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M9 19V6l12-3v13"></path>
+                    <path d="M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2z"></path>
+                    <path d="M21 16c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2z"></path>
+                </svg>
+            </div>
+            <span class="menu-text">PluginPro</span>
+        </a>
+        <a href="#" class="menu-item">
+            <div class="menu-icon">
+                <svg width="20" height="20" fill="none" stroke="#8b5cf6" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5z"></path>
+                    <path d="M20 2v20"></path>
+                </svg>
+            </div>
+            <span class="menu-text">Library</span>
+        </a>
+        <a class="menu-item" onclick="openModal('dmcaModal')">
+            <div class="menu-icon">
+                <svg width="20" height="20" fill="none" stroke="#8b5cf6" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+            </div>
+            <span class="menu-text">DMCA Requests</span>
+        </a>
+    </div>
+    
+    <div class="sidebar-divider"></div>
+    
+    <div class="sidebar-section">
+        <a class="menu-item" onclick="openModal('supportModal')">
+            <div class="menu-icon">
+                <svg width="20" height="20" fill="none" stroke="#8b5cf6" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+            </div>
+            <span class="menu-text">Support Us</span>
+        </a>
+    </div>
+</nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Search Bar -->
+        <div class="search-container">
+            <input type="text" class="search-bar" placeholder="Search plugins..." onkeyup="searchPlugins()">
+        </div>
+
+        <div class="content-grid">
+            <!-- Sausage Fattener -->
+            <div class="plugin-card" data-name="sausage fattener" data-description="Professional audio enhancement plugin for massive sound">
+                <img src="https://i.postimg.cc/FRCG1JXk/E-1-WFVq-VQAE5z-SG.jpg" alt="Sausage Fattener" class="plugin-image">
+                <div class="plugin-info">
+                    <h3>Sausage Fattener</h3>
+                    <div class="version">v3.2.1</div>
+                    <p>Professional audio enhancement plugin for massive sound</p>
+                </div>
+                <div class="button-group">
+                    <a href="https://example.com/download/sausage-fattener" class="button download-btn" target="_blank">Download</a>
+                    <a href="#" class="button guide-btn" onclick="openModal('sausageGuideModal')">Guide</a>
+                </div>
+            </div>
+
+            <!-- Soothe 2 -->
+            <div class="plugin-card" data-name="soothe 2" data-description="Dynamic resonance suppressor for clean, professional sound">
+                <img src="https://i.postimg.cc/VvSgtLzG/images.png" alt="Soothe 2" class="plugin-image">
+                <div class="plugin-info">
+                    <h3>Soothe 2</h3>
+                    <div class="version">v2.5.0</div>
+                    <p>Dynamic resonance suppressor for clean, professional sound</p>
+                </div>
+                <div class="button-group">
+                    <a href="https://example.com/download/soothe2" class="button download-btn" target="_blank">Download</a>
+                    <a href="#" class="button guide-btn" onclick="openModal('sootheGuideModal')">Guide</a>
+                </div>
+            </div>
+
+            <!-- FabFilter Bundle -->
+            <div class="plugin-card" data-name="fabfilter bundle" data-description="Complete collection of professional mixing and mastering tools">
+                <img src="https://i.postimg.cc/rsvJNXm8/oeksound.jpg" alt="FabFilter Bundle" class="plugin-image">
+                <div class="plugin-info">
+                    <h3>FabFilter Bundle</h3>
+                    <div class="version">v2023.2</div>
+                    <p>Complete collection of professional mixing and mastering tools</p>
+                </div>
+                <div class="button-group">
+                    <a href="https://example.com/download/fabfilter-bundle" class="button download-btn" target="_blank">Download</a>
+                    <a href="#" class="button guide-btn" onclick="openModal('fabfilterGuideModal')">Guide</a>
+                </div>
+            </div>
+
+<!-- Endless Smile -->
+            <div class="plugin-card" data-name="endless smile" data-description="Creative FX plugin for buildups and transitions">
+                <img src="https://i.postimg.cc/K8CBRSzf/images-1.jpg" alt="Endless Smile" class="plugin-image">
+                <div class="plugin-info">
+                    <h3>Endless Smile</h3>
+                    <div class="version">v1.5.2</div>
+                    <p>Creative FX plugin for buildups and transitions</p>
+                </div>
+                <div class="button-group">
+                    <a href="https://example.com/download/endless-smile" class="button download-btn" target="_blank">Download</a>
+                    <a href="#" class="button guide-btn" onclick="openModal('endlessSmileGuideModal')">Guide</a>
+                </div>
+            </div>
+
+            <!-- iZotope Plasma -->
+            <div class="plugin-card" data-name="izotope plasma" data-description="Advanced distortion and waveshaping processor">
+                <img src="https://i.postimg.cc/vBsntr56/i-Zotope-Plasma-Logo.png" alt="iZotope Plasma" class="plugin-image">
+                <div class="plugin-info">
+                    <h3>iZotope Plasma</h3>
+                    <div class="version">v2.1.0</div>
+                    <p>Advanced distortion and waveshaping processor</p>
+                </div>
+                <div class="button-group">
+                    <a href="https://example.com/download/izotope-plasma" class="button download-btn" target="_blank">Download</a>
+                    <a href="#" class="button guide-btn" onclick="openModal('plasmaGuideModal')">Guide</a>
+                </div>
+            </div>
+
+            <!-- Melodyne -->
+            <div class="plugin-card" data-name="melodyne" data-description="Professional pitch correction and audio manipulation">
+                <img src="https://i.postimg.cc/wMxsS9fq/Celemony-Melodyne-5-ESSENTIAL-01-768x1024.jpg" alt="Melodyne" class="plugin-image">
+                <div class="plugin-info">
+                    <h3>Melodyne</h3>
+                    <div class="version">v5.3</div>
+                    <p>Professional pitch correction and audio manipulation</p>
+                </div>
+                <div class="button-group">
+                    <a href="https://example.com/download/melodyne" class="button download-btn" target="_blank">Download</a>
+                    <a href="#" class="button guide-btn" onclick="openModal('melodyneGuideModal')">Guide</a>
+                </div>
+            </div>
+
+            <!-- Valhalla -->
+            <div class="plugin-card" data-name="valhalla" data-description="High-quality reverb and effect processors">
+                <img src="https://i.postimg.cc/ydyZQDTp/images-1.png" alt="Valhalla" class="plugin-image">
+                <div class="plugin-info">
+                    <h3>Valhalla Bundle</h3>
+                    <div class="version">v2.7.0</div>
+                    <p>High-quality reverb and effect processors</p>
+                </div>
+                <div class="button-group">
+                    <a href="https://example.com/download/valhalla" class="button download-btn" target="_blank">Download</a>
+                    <a href="#" class="button guide-btn" onclick="openModal('valhallaGuideModal')">Guide</a>
+                </div>
+            </div>
+
+<!-- Coming Soon Card -->
+<div class="plugin-card" style="border: 2px dashed #333; background: transparent;">
+    <div class="plugin-info" style="text-align: center; padding: 20px;">
+        <h3 style="color: #666; margin-bottom: 10px; font-size: 1.1rem;">Coming Soon</h3>
+        <p style="color: #444;">New plugins and tools arriving soon</p>
+    </div>
+</div>
+
+
+    <script>
+        // Modal Functions
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                closeModal(event.target.id);
+            }
+        }
+
+        // Search functionality
+        function searchPlugins() {
+            const searchInput = document.querySelector('.search-bar').value.toLowerCase();
+            const plugins = document.querySelectorAll('.plugin-card:not(.placeholder-card)');
+            
+            plugins.forEach(plugin => {
+                const name = plugin.dataset.name;
+                const description = plugin.dataset.description;
+                const searchString = `${name} ${description}`.toLowerCase();
+                
+                if (searchString.includes(searchInput)) {
+                    plugin.style.display = '';
+                } else {
+                    plugin.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
